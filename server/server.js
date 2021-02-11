@@ -2,6 +2,9 @@ const express = require('express');
 const http = require('http');
 const socketio = require('socket.io');
 
+const { formatMessage } = require('../src/utils/messages');
+const { joinUser, getUser } = require('../src/utils/users');
+
 // Create Server
 const app = express();
 const server = http.createServer(app);
@@ -13,10 +16,15 @@ app.use(router);
 
 // Socket.io connections and events
 io.on('connection', (socket) => {
-  console.log('Welcome');
-  socket.on('message', () => {
-    socket.emit('fromServer', 'werwer');
+  socket.on('joinRoom', ({ name, topic }) => {
+    const currentUser = joinUser(socket.id, name, topic);
+
+    socket.join(currentUser.topic);
+
+    socket.emit('message', formatMessage('admin', 'Welcome to Chatters'));
   });
+
+  socket.on('message');
 
   socket.on('disconnect', () => {
     console.log('a user has left the chat');

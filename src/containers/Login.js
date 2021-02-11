@@ -26,7 +26,7 @@ const Room = () => {
               type='text'
               required=''
               placeholder='ex. Bob, Dalisay, John, etc.'
-              onChange={(event) => setTopic(event.target.value)}
+              onChange={(event) => setName(event.target.value)}
             />
           </div>
           <div class=''>
@@ -36,7 +36,7 @@ const Room = () => {
               type='text'
               required=''
               placeholder='ex. Dogs, Programming, Hiking, etc.'
-              onChange={(event) => setName(event.target.value)}
+              onChange={(event) => setTopic(event.target.value)}
             />
           </div>
           <ul>Active Topics</ul>

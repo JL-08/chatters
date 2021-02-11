@@ -1,21 +1,24 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './MessageInput.css';
 
-export class MessageInput extends Component {
-  render() {
-    return (
-      <div className='input-container'>
-        <div className='input-wrapper'>
-          <input
-            type='text'
-            className='text-input'
-            placeholder='Message goes here...'
-          />
-          <button className='btn-send'>Send</button>
-        </div>
+const MessageInput = ({ sendMessage, message, setMessage }) => {
+  return (
+    <div className='input-container'>
+      <div className='input-wrapper'>
+        <input
+          type='text'
+          id='text-input'
+          placeholder='Message goes here...'
+          onChange={(e) => {
+            setMessage(e.target.value);
+          }}
+        />
+        <button className='btn-send' onClick={(e) => sendMessage(e)}>
+          Send
+        </button>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default MessageInput;

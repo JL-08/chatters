@@ -1,4 +1,4 @@
-import { Component, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import queryString from 'query-string';
 import socketIOClient from 'socket.io-client';
 
@@ -12,6 +12,8 @@ let socket;
 const ChatApp = ({ location }) => {
   const [name, setName] = useState('');
   const [topic, setTopic] = useState('');
+  const [message, setMessage] = useState('');
+  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
     socket = socketIOClient(ENDPOINT);
@@ -23,10 +25,29 @@ const ChatApp = ({ location }) => {
     socket.emit('joinRoom', { name, topic });
   }, [ENDPOINT, location.search]);
 
+  useEffect(() => {
+    socket.on('message', (msg) => {
+      console.log(msg.name, msg.msg, msg.time);
+    });
+  }, []);
+
+  const sendMessage = (e) => {
+    e.preventDefault();
+
+    socket.emit('message', message);
+    const textInput = document.getElementById('text-input');
+
+    setMessages(message);
+    textInput.value = '';
+  };
   return (
     <div className='flex p-4 w-full h-screen space-x-2'>
       <Room />
-      <ChatRoom />
+      <ChatRoom
+        sendMessage={sendMessage}
+        message={message}
+        setMessage={setMessage}
+      />
       <Participants />
     </div>
   );
