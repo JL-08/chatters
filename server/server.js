@@ -2,7 +2,7 @@ const express = require('express');
 const http = require('http');
 const socketio = require('socket.io');
 
-const { formatMessage } = require('../src/utils/messages');
+const formatMessage = require('../src/utils/messages');
 const { joinUser, getUser } = require('../src/utils/users');
 
 // Create Server
@@ -24,7 +24,7 @@ io.on('connection', (socket) => {
     socket.emit('message', formatMessage('admin', 'Welcome to Chatters'));
   });
 
-  socket.on('message');
+  // socket.on('message');
 
   socket.on('disconnect', () => {
     console.log('a user has left the chat');
