@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './MessageInput.css';
 
-const MessageInput = ({ sendMessage, message, setMessage }) => {
+const MessageInput = ({ setMessage, sendMessage }) => {
   return (
     <div className='input-container'>
       <div className='input-wrapper'>

@@ -7,10 +7,11 @@ const joinUser = (id, name, topic) => {
   return user;
 };
 
-const getUser = (id) => {
-  return users.filter((el) => el.id === id);
+const getCurrentUser = (id) => {
+  return users.find((user) => user.id === id);
 };
 
 module.exports = {
   joinUser,
+  getCurrentUser,
 };
