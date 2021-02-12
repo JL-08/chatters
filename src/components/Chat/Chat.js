@@ -4,7 +4,7 @@ import Messages from './Messages/Messages';
 
 const Chat = ({ messageList, name }) => {
   return (
-    <div className='chat-container'>
+    <div className='chat-container space-y-3'>
       <div id='messages'>
         {Object.entries(messageList).map((message, i) => (
           <Messages key={i} message={message[1]} name={name} />

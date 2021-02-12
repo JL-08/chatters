@@ -3,8 +3,10 @@ import './App.css';
 
 const Room = () => {
   return (
-    <div className='rounded-container bg-white w-1/4 h-full p-5'>
-      <h5>Join other topics</h5>
+    <div className='bg-white w-1/4 h-full px-5'>
+      <div className='box-shadow bg-blue-50 h-3/5 rounded-2xl p-3'>
+        <h1 className='font-bold'>Other Topics</h1>
+      </div>
       <ul>
         <li></li>
       </ul>

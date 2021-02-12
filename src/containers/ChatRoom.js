@@ -5,7 +5,7 @@ import MessageInput from '../components/MessageInput/MessageInput';
 
 const ChatRoom = ({ sendMessage, message, setMessage, messageList, name }) => {
   return (
-    <div className='rounded-container w-2/4 bg-blue-50 p-5'>
+    <div className='box-outline w-2/4 bg-blue-50 p-5 rounded-2xl'>
       <Chat messageList={messageList} name={name} />
       <MessageInput
         sendMessage={sendMessage}

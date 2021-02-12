@@ -55,7 +55,7 @@ const ChatApp = ({ location }) => {
   };
 
   return (
-    <div className='flex p-4 w-full h-screen space-x-2'>
+    <div className='flex p-4 w-full h-full space-x-2'>
       <Room />
       <ChatRoom
         setMessage={setMessage}
