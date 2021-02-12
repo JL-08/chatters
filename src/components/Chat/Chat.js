@@ -1,33 +1,14 @@
 import React from 'react';
 import './Chat.css';
-import { displayMessage } from '../../utils/messages';
+import Messages from './Messages/Messages';
 
-const Chat = () => {
+const Chat = ({ messageList }) => {
   return (
     <div className='chat-container'>
       <div id='messages'>
-        <div className='other-message'>
-          <div className='other-inner-container'>
-            <div className='other-message-container'>
-              <p className='username'>John</p>
-              <p className='text'>Other's message</p>
-            </div>
-            <span className='date'>4:11PM</span>
-          </div>
-        </div>
-        <div className='align-right'>
-          <div className='user-message'>
-            <div className='user-inner-container'>
-              <div className='user-message-container'>
-                {/* <p className='username'>You</p> */}
-                <p className='text'>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                </p>
-              </div>
-              <span className='date'>4:11PM</span>
-            </div>
-          </div>
-        </div>
+        {Object.entries(messageList).map((message) => (
+          <Messages key={message[1].name} message={message[1]} />
+        ))}
       </div>
     </div>
   );

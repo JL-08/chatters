@@ -13,7 +13,7 @@ const ChatApp = ({ location }) => {
   const [name, setName] = useState('');
   const [topic, setTopic] = useState('');
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([]);
+  const [messageList, setMessageList] = useState([]);
 
   useEffect(() => {
     socket = socketIOClient(ENDPOINT);
@@ -26,9 +26,8 @@ const ChatApp = ({ location }) => {
   }, [ENDPOINT, location.search]);
 
   useEffect(() => {
-    socket.on('message', (msg) => {
-      setMessages((messages) => [...messages, msg]);
-      console.log(messages);
+    socket.on('message', (message) => {
+      setMessageList((msg) => [...msg, message]);
     });
   }, []);
 
@@ -38,14 +37,18 @@ const ChatApp = ({ location }) => {
     socket.emit('chatMessage', message);
     const textInput = document.getElementById('text-input');
 
-    setMessages(message);
+    setMessage(message);
     textInput.value = '';
   };
 
   return (
     <div className='flex p-4 w-full h-screen space-x-2'>
       <Room />
-      <ChatRoom setMessage={setMessage} sendMessage={sendMessage} />
+      <ChatRoom
+        setMessage={setMessage}
+        sendMessage={sendMessage}
+        messageList={messageList}
+      />
       <Participants />
     </div>
   );
