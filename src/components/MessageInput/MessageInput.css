@@ -15,12 +15,17 @@
   margin: auto 0;
 }
 
-.text-input {
+#text-input {
   border-radius: 0.5em;
   border: 1px solid #c7c7c7;
   width: 100%;
   margin-right: 0.8rem;
   padding: 5px;
+}
+
+#text-input:focus {
+  outline: none;
+  box-shadow: 0 0 10px #c2c2c2;
 }
 
 .btn-send {
@@ -31,5 +36,5 @@
 }
 
 .btn-send:focus {
-  outline: 0;
+  outline: none;
 }
