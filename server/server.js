@@ -28,9 +28,9 @@ io.on('connection', (socket) => {
   });
 
   socket.on('chatMessage', (message) => {
-    const { name } = getCurrentUser(socket.id);
+    const { name, topic } = getCurrentUser(socket.id);
 
-    socket.emit('message', formatMessage(name, message, true));
+    io.to(topic).emit('message', formatMessage(name, message, true));
   });
 
   socket.on('disconnect', () => {

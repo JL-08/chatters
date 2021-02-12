@@ -48,6 +48,7 @@ const ChatApp = ({ location }) => {
         setMessage={setMessage}
         sendMessage={sendMessage}
         messageList={messageList}
+        name={name}
       />
       <Participants />
     </div>

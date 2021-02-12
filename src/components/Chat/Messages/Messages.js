@@ -1,9 +1,14 @@
 import React from 'react';
 
-const Messages = ({ message }) => {
+const Messages = ({ message, name }) => {
+  let isSentByCurrentUser = false;
+
+  if (message.name === name) {
+    isSentByCurrentUser = true;
+  }
   return (
     <div>
-      {message.isCurrentUserMsg ? (
+      {isSentByCurrentUser ? (
         <div className='align-right'>
           <div className='user-message'>
             <div className='user-inner-container'>
