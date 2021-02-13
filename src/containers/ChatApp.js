@@ -10,6 +10,7 @@ const ENDPOINT = 'http://127.0.0.1:8000';
 let socket;
 
 //TODO: change names of vague variable names
+//TODO: add scroll to bottom
 
 // Create context for passing of states to components
 export const MessageContext = createContext();
@@ -20,6 +21,7 @@ const ChatApp = ({ location }) => {
   const [message, setMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
   const [adminMessageList, setAdminMessageList] = useState([]);
+  const [participantsList, setParticipantsList] = useState([]);
 
   useEffect(() => {
     // Connect to a socket
@@ -44,6 +46,10 @@ const ChatApp = ({ location }) => {
         setMessageList((msg) => [...msg, message]);
       }
     });
+
+    socket.on('displayParticipants', (users) => {
+      setParticipantsList([...users]);
+    });
   }, []);
 
   // onClick handler
@@ -64,7 +70,14 @@ const ChatApp = ({ location }) => {
   return (
     <div className='flex p-4 w-full h-full space-x-2'>
       <MessageContext.Provider
-        value={{ setMessage, sendMessage, messageList, name, adminMessageList }}
+        value={{
+          setMessage,
+          sendMessage,
+          messageList,
+          name,
+          adminMessageList,
+          participantsList,
+        }}
       >
         <Room />
         <ChatRoom />

@@ -7,6 +7,7 @@ const {
   joinUser,
   getCurrentUser,
   getDeactiveUser,
+  getAllUsersInRoom,
 } = require('../src/utils/users');
 
 // Create Server
@@ -27,7 +28,11 @@ io.on('connection', (socket) => {
 
     socket.emit(
       'message',
-      formatMessage('admin', 'Welcome to Chatters', false)
+      formatMessage(
+        'admin',
+        `You have joined in ${currentUser.topic} room`,
+        false
+      )
     );
 
     socket.broadcast
@@ -36,6 +41,9 @@ io.on('connection', (socket) => {
         'message',
         formatMessage('admin', `${currentUser.name} has joined the chat`, false)
       );
+
+    const allUsers = getAllUsersInRoom(currentUser.topic);
+    io.to(currentUser.topic).emit('displayParticipants', allUsers);
   });
 
   socket.on('chatMessage', (message) => {
@@ -52,6 +60,9 @@ io.on('connection', (socket) => {
         'message',
         formatMessage('admin', `${user.name} has left the chat`, false)
       );
+
+      const allUsers = getAllUsersInRoom(user.topic);
+      io.to(allUsers[0].topic).emit('displayParticipants', allUsers);
     }
   });
 });
