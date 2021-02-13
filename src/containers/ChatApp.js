@@ -4,7 +4,7 @@ import socketIOClient from 'socket.io-client';
 
 import Room from './Room';
 import ChatRoom from './ChatRoom';
-import Participants from './Participants';
+import RoomInfo from './RoomInfo';
 
 const ENDPOINT = 'http://127.0.0.1:8000';
 let socket;
@@ -19,6 +19,7 @@ const ChatApp = ({ location }) => {
   const [topic, setTopic] = useState('');
   const [message, setMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
+  const [adminMessageList, setAdminMessageList] = useState([]);
 
   useEffect(() => {
     // Connect to a socket
@@ -37,7 +38,11 @@ const ChatApp = ({ location }) => {
     // Listen for sent messages by user
     // Stores the sent message in list
     socket.on('message', (message) => {
-      setMessageList((msg) => [...msg, message]);
+      if (message.name === 'admin') {
+        setAdminMessageList((msg) => [...msg, message]);
+      } else {
+        setMessageList((msg) => [...msg, message]);
+      }
     });
   }, []);
 
@@ -59,11 +64,11 @@ const ChatApp = ({ location }) => {
   return (
     <div className='flex p-4 w-full h-full space-x-2'>
       <MessageContext.Provider
-        value={{ setMessage, sendMessage, messageList, name }}
+        value={{ setMessage, sendMessage, messageList, name, adminMessageList }}
       >
         <Room />
         <ChatRoom />
-        <Participants />
+        <RoomInfo />
       </MessageContext.Provider>
     </div>
   );

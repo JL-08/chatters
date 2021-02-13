@@ -1,0 +1,19 @@
+.announce-container {
+  height: 85%;
+  background-color: #f9fafd;
+}
+
+#announce-msg-users {
+  color: #888888;
+  font-size: 1rem;
+}
+
+#announce-user {
+  color: #3b33a1;
+  font-weight: 700;
+}
+
+#announce-msg-admin {
+  font-size: 0.9rem;
+  font-weight: 700;
+}

@@ -3,7 +3,11 @@ const http = require('http');
 const socketio = require('socket.io');
 
 const formatMessage = require('../src/utils/messages');
-const { joinUser, getCurrentUser } = require('../src/utils/users');
+const {
+  joinUser,
+  getCurrentUser,
+  getDeactiveUser,
+} = require('../src/utils/users');
 
 // Create Server
 const app = express();
@@ -25,6 +29,13 @@ io.on('connection', (socket) => {
       'message',
       formatMessage('admin', 'Welcome to Chatters', false)
     );
+
+    socket.broadcast
+      .to(currentUser.topic)
+      .emit(
+        'message',
+        formatMessage('admin', `${currentUser.name} has joined the chat`, false)
+      );
   });
 
   socket.on('chatMessage', (message) => {
@@ -34,7 +45,14 @@ io.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
-    console.log('a user has left the chat');
+    const user = getDeactiveUser(socket.id);
+
+    if (user) {
+      io.to(user.topic).emit(
+        'message',
+        formatMessage('admin', `${user.name} has left the chat`, false)
+      );
+    }
   });
 });
 
