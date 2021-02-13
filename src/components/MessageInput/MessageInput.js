@@ -1,7 +1,10 @@
 import React, { useContext } from 'react';
 import './MessageInput.css';
+import { MessageContext } from '../../containers/ChatApp';
 
-const MessageInput = ({ setMessage, sendMessage }) => {
+const MessageInput = () => {
+  const { setMessage, sendMessage } = useContext(MessageContext);
+
   return (
     <div className='input-container'>
       <div className='input-wrapper'>

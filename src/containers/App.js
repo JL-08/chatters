@@ -1,7 +1,7 @@
 import React from 'react';
 import Login from './Login';
 import ChatApp from './ChatApp';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 const App = () => {
   return (

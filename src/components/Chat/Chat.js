@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Chat.css';
 import Messages from './Messages/Messages';
+import { MessageContext } from '../../containers/ChatApp';
 
-const Chat = ({ messageList, name }) => {
+const Chat = () => {
+  const { messageList, name } = useContext(MessageContext);
+
   return (
     <div className='chat-container space-y-3'>
       <div id='messages'>

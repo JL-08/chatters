@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext, createContext } from 'react';
+import { useEffect, useState, createContext } from 'react';
 import queryString from 'query-string';
 import socketIOClient from 'socket.io-client';
 
@@ -9,8 +9,10 @@ import Participants from './Participants';
 const ENDPOINT = 'http://127.0.0.1:8000';
 let socket;
 
-//TODO: refactor to use useContext Hooks
 //TODO: change names of vague variable names
+
+// Create context for passing of states to components
+export const MessageContext = createContext();
 
 const ChatApp = ({ location }) => {
   const [name, setName] = useState('');
@@ -29,7 +31,7 @@ const ChatApp = ({ location }) => {
 
     // Join user in room
     socket.emit('joinRoom', { name, topic });
-  }, [ENDPOINT, location.search]);
+  }, [location.search]);
 
   useEffect(() => {
     // Listen for sent messages by user
@@ -56,14 +58,13 @@ const ChatApp = ({ location }) => {
 
   return (
     <div className='flex p-4 w-full h-full space-x-2'>
-      <Room />
-      <ChatRoom
-        setMessage={setMessage}
-        sendMessage={sendMessage}
-        messageList={messageList}
-        name={name}
-      />
-      <Participants />
+      <MessageContext.Provider
+        value={{ setMessage, sendMessage, messageList, name }}
+      >
+        <Room />
+        <ChatRoom />
+        <Participants />
+      </MessageContext.Provider>
     </div>
   );
 };
