@@ -80,6 +80,10 @@ const ChatApp = ({ location }) => {
     window.location.href = `http://127.0.0.1:3000/chat?name=${name}&topic=${newTopic}`;
   };
 
+  const disconnectUser = (e) => {
+    socket.close();
+  };
+
   return (
     <div className='flex p-4 w-full h-full space-x-2'>
       <MessageContext.Provider
@@ -93,6 +97,7 @@ const ChatApp = ({ location }) => {
           topicList,
           sendMessage,
           changeTopic,
+          disconnectUser,
         }}
       >
         <TopicList />
