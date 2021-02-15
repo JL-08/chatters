@@ -1,0 +1,10 @@
+li {
+  list-style: none;
+  padding: 0.2rem 0.2rem 0.2rem 0;
+  width: fit-content;
+}
+
+li:hover {
+  cursor: pointer;
+  color: #3b33a1;
+}

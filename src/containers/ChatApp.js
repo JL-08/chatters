@@ -2,7 +2,7 @@ import { useEffect, useState, createContext } from 'react';
 import queryString from 'query-string';
 import socketIOClient from 'socket.io-client';
 
-import Room from './Room';
+import TopicList from './TopicList';
 import ChatRoom from './ChatRoom';
 import RoomInfo from './RoomInfo';
 
@@ -22,6 +22,7 @@ const ChatApp = ({ location }) => {
   const [messageList, setMessageList] = useState([]);
   const [adminMessageList, setAdminMessageList] = useState([]);
   const [participantsList, setParticipantsList] = useState([]);
+  const [topicList, setTopicList] = useState([]);
 
   useEffect(() => {
     // Connect to a socket
@@ -29,7 +30,9 @@ const ChatApp = ({ location }) => {
 
     // Get name and topic from query
     const { name, topic } = queryString.parse(location.search);
-    setTopic(topic);
+
+    const capitalizedTopic = topic.charAt(0).toUpperCase() + topic.slice(1);
+    setTopic(capitalizedTopic);
     setName(name);
 
     // Join user in room
@@ -50,9 +53,13 @@ const ChatApp = ({ location }) => {
     socket.on('displayParticipants', (users) => {
       setParticipantsList([...users]);
     });
+
+    socket.on('displayTopics', (topics) => {
+      setTopicList([...topics]);
+    });
   }, []);
 
-  // onClick handler
+  // onClick handlers
   const sendMessage = (e) => {
     e.preventDefault();
 
@@ -67,19 +74,27 @@ const ChatApp = ({ location }) => {
     }
   };
 
+  const changeTopic = (e) => {
+    const newTopic = e.target.innerHTML.toLowerCase();
+    window.location.href = `http://127.0.0.1:3000/chat?name=${name}&topic=${newTopic}`;
+  };
+
   return (
     <div className='flex p-4 w-full h-full space-x-2'>
       <MessageContext.Provider
         value={{
-          setMessage,
-          sendMessage,
-          messageList,
           name,
+          topic,
+          setMessage,
+          messageList,
           adminMessageList,
           participantsList,
+          topicList,
+          sendMessage,
+          changeTopic,
         }}
       >
-        <Room />
+        <TopicList />
         <ChatRoom />
         <RoomInfo />
       </MessageContext.Provider>
