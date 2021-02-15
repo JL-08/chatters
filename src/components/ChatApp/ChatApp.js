@@ -31,9 +31,10 @@ const ChatApp = ({ location }) => {
     // Get name and topic from query
     const { name, topic } = queryString.parse(location.search);
 
+    const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
     const capitalizedTopic = topic.charAt(0).toUpperCase() + topic.slice(1);
     setTopic(capitalizedTopic);
-    setName(name);
+    setName(capitalizedName);
 
     // Join user in room
     socket.emit('joinRoom', { name, topic });
@@ -75,7 +76,7 @@ const ChatApp = ({ location }) => {
   };
 
   const changeTopic = (e) => {
-    const newTopic = e.target.innerHTML.toLowerCase();
+    const newTopic = e.target.innerHTML;
     window.location.href = `http://127.0.0.1:3000/chat?name=${name}&topic=${newTopic}`;
   };
 

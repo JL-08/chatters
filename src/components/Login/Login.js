@@ -14,6 +14,7 @@ const Room = () => {
   const contentWrapper = {
     marginTop: '2em',
   };
+
   return (
     <div style={containerStyle} className='rounded-container p-5 flex'>
       <div style={contentWrapper} className='h-full w-2/3 m-auto flex flex-col'>
@@ -61,7 +62,9 @@ const Room = () => {
           <div className='mt-4'>
             <Link
               onClick={(e) => (!name || !topic ? e.preventDefault() : null)}
-              to={`/chat?name=${name}&topic=${topic}`}
+              to={`/chat?name=${
+                name.charAt(0).toUpperCase() + name.slice(1)
+              }&topic=${topic.charAt(0).toUpperCase() + topic.slice(1)}`}
             >
               <button
                 className='px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded'

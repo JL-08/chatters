@@ -6,15 +6,24 @@ import Topic from './Topic/Topic';
 import { MessageContext } from '../ChatApp/ChatApp';
 
 const TopicList = () => {
+  const getTopicsBySize = (topics, size) => {
+    if (topics.length < size) {
+      return topics.slice(0, topics.length);
+    } else {
+      return topics.slice(0, size);
+    }
+  };
+
+  const removeCurrentTopic = (topics, currentTopic) => {
+    return topics.filter((val) => val !== currentTopic);
+  };
+
   const { topic, topicList, changeTopic } = useContext(MessageContext);
 
-  let firstTenTopics = [];
-  if (topicList.length < 10) {
-    firstTenTopics = topicList.slice(0, topicList.length);
-  } else {
-    firstTenTopics = topicList.slice(0, 10);
-  }
-  console.log(firstTenTopics);
+  const newTopicList = removeCurrentTopic(
+    getTopicsBySize(topicList, 10),
+    topic
+  );
 
   return (
     <div className='bg-white w-1/4 h-full px-5'>
@@ -22,7 +31,7 @@ const TopicList = () => {
         <h1 className='text-2xl mb-2'>#{topic}</h1>
         <div>
           <ul className='font-bold'>Join other topics</ul>
-          {firstTenTopics.map((topic, i) => (
+          {newTopicList.map((topic, i) => (
             <Topic key={i} topic={topic} changeTopic={changeTopic} />
           ))}
         </div>
