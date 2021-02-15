@@ -1,7 +1,7 @@
 import React from 'react';
-import './App.css';
-import Chat from '../components/Chat/Chat';
-import MessageInput from '../components/MessageInput/MessageInput';
+import '../App.css';
+import Chat from '../Chat/Chat';
+import MessageInput from '../MessageInput/MessageInput';
 
 const ChatRoom = () => {
   return (

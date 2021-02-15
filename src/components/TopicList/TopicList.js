@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import './App.css';
+import '../App.css';
 import './TopicList.css';
-import Topic from '../components/Topic/Topic';
+import Topic from './Topic/Topic';
 
-import { MessageContext } from './ChatApp';
+import { MessageContext } from '../ChatApp/ChatApp';
 
 const TopicList = () => {
   const { topic, topicList, changeTopic } = useContext(MessageContext);

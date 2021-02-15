@@ -1,13 +1,13 @@
 import React from 'react';
-import './App.css';
+import '../App.css';
 
-import Participants from './Participants';
-import Announcements from './Announcements';
+import ParticipantsList from '../ParticipantsList/ParticipantsList';
+import Announcements from '../Announcements/Announcements';
 
 const RoomInfo = () => {
   return (
     <div className='bg-white w-1/4 h-full px-5 flex flex-col justify-between'>
-      <Participants />
+      <ParticipantsList />
       <Announcements />
     </div>
   );

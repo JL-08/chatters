@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import './App.css';
+import '../App.css';
 import './Announcements.css';
-import AnnouncementMessage from '../components/AnnouncementMessage/AnnouncementMessage';
+import AnnouncementMessage from './AnnouncementMessage/AnnouncementMessage';
 
-import { MessageContext } from './ChatApp';
+import { MessageContext } from '../ChatApp/ChatApp';
 
 //TODO: add scroll bars and scroll to bottom
 const Announcements = () => {

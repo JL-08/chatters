@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import './Chat.css';
 import Messages from './Messages/Messages';
-import { MessageContext } from '../../containers/ChatApp';
+import { MessageContext } from '../ChatApp/ChatApp';
 
 const Chat = () => {
   const { messageList, name } = useContext(MessageContext);

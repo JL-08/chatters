@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import './MessageInput.css';
-import { MessageContext } from '../../containers/ChatApp';
+import { MessageContext } from '../ChatApp/ChatApp';
 
 const MessageInput = () => {
   const { setMessage, sendMessage } = useContext(MessageContext);

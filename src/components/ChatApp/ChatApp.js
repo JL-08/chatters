@@ -2,9 +2,9 @@ import { useEffect, useState, createContext } from 'react';
 import queryString from 'query-string';
 import socketIOClient from 'socket.io-client';
 
-import TopicList from './TopicList';
-import ChatRoom from './ChatRoom';
-import RoomInfo from './RoomInfo';
+import TopicList from '../TopicList/TopicList';
+import ChatRoom from '../ChatRoom/ChatRoom';
+import RoomInfo from '../RoomInfo/RoomInfo';
 
 const ENDPOINT = 'http://127.0.0.1:8000';
 let socket;

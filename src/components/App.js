@@ -1,6 +1,6 @@
 import React from 'react';
-import Login from './Login';
-import ChatApp from './ChatApp';
+import Login from './Login/Login';
+import ChatApp from './ChatApp/ChatApp';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 const App = () => {
