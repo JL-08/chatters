@@ -1,3 +1,8 @@
+# Chatters: A Real-Time Chat Application
+
+Chatters lets people chat with each other of their chosen topic.\
+Built with React.JS (Hooks), Node.JS, Express and Socket.io.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
