@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../App.css';
 import { Link } from 'react-router-dom';
 
-const Room = () => {
-  const [name, setName] = useState('');
-  const [topic, setTopic] = useState('');
-
+const Login = ({ setName, setTopic, handleLogin }) => {
   const containerStyle = {
     height: '70%',
     width: '50%',
@@ -60,12 +57,7 @@ const Room = () => {
             </div>
           </div>
           <div className='mt-4'>
-            <Link
-              onClick={(e) => (!name || !topic ? e.preventDefault() : null)}
-              to={`/chat?name=${
-                name.charAt(0).toUpperCase() + name.slice(1)
-              }&topic=${topic.charAt(0).toUpperCase() + topic.slice(1)}`}
-            >
+            <Link onClick={handleLogin} to={'/chat'}>
               <button
                 className='px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded'
                 type='submit'
@@ -80,4 +72,4 @@ const Room = () => {
   );
 };
 
-export default Room;
+export default Login;

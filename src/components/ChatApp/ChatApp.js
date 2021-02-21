@@ -15,7 +15,7 @@ let socket;
 // Create context for passing of states to components
 export const MessageContext = createContext();
 
-const ChatApp = ({ location }) => {
+const ChatApp = ({ location, loggedName, loggedTopic }) => {
   const [name, setName] = useState('');
   const [topic, setTopic] = useState('');
   const [message, setMessage] = useState('');
@@ -29,16 +29,18 @@ const ChatApp = ({ location }) => {
     socket = socketIOClient(ENDPOINT);
 
     // Get name and topic from query
-    const { name, topic } = queryString.parse(location.search);
-
-    const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
-    const capitalizedTopic = topic.charAt(0).toUpperCase() + topic.slice(1);
+    // const { name, topic } = queryString.parse(location.search);
+    console.log(loggedName, loggedTopic);
+    const capitalizedName =
+      loggedName.charAt(0).toUpperCase() + loggedName.slice(1);
+    const capitalizedTopic =
+      loggedTopic.charAt(0).toUpperCase() + loggedTopic.slice(1);
     setTopic(capitalizedTopic);
     setName(capitalizedName);
 
     // Join user in room
-    socket.emit('joinRoom', { name, topic });
-  }, [location.search]);
+    socket.emit('joinRoom', { name: capitalizedName, topic: capitalizedTopic });
+  }, []);
 
   useEffect(() => {
     // Listen for sent messages by user
