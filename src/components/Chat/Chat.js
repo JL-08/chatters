@@ -5,7 +5,7 @@ import { MessageContext } from '../ChatApp/ChatApp';
 
 const Chat = () => {
   const { messageList, name } = useContext(MessageContext);
-
+  console.log('messageL', messageList);
   return (
     <div className='chat-container space-y-3'>
       <div id='messages'>

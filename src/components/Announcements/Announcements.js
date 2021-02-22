@@ -14,7 +14,7 @@ const Announcements = () => {
       <h1 className='font-bold mb-2'>Announcements</h1>
       <div className='announce-container'>
         {Object.entries(adminMessageList).map((message, i) => (
-          <AnnouncementMessage key={i} message={message[1].msg} />
+          <AnnouncementMessage key={i} message={message[1].messageText} />
         ))}
       </div>
     </div>

@@ -1,21 +1,23 @@
 import { useEffect, useState, createContext } from 'react';
-import queryString from 'query-string';
 import socketIOClient from 'socket.io-client';
 
 import TopicList from '../TopicList/TopicList';
 import ChatRoom from '../ChatRoom/ChatRoom';
 import RoomInfo from '../RoomInfo/RoomInfo';
 
+import { getAllMessages } from '../../utils/api';
+
 const ENDPOINT = 'http://127.0.0.1:8000';
 let socket;
 
 //TODO: change names of vague variable names
 //TODO: add scroll to bottom
+//TODO: fix reload
 
 // Create context for passing of states to components
 export const MessageContext = createContext();
 
-const ChatApp = ({ location, loggedName, loggedTopic }) => {
+const ChatApp = ({ loggedName, loggedTopic }) => {
   const [name, setName] = useState('');
   const [topic, setTopic] = useState('');
   const [message, setMessage] = useState('');
@@ -28,9 +30,6 @@ const ChatApp = ({ location, loggedName, loggedTopic }) => {
     // Connect to a socket
     socket = socketIOClient(ENDPOINT);
 
-    // Get name and topic from query
-    // const { name, topic } = queryString.parse(location.search);
-    console.log(loggedName, loggedTopic);
     const capitalizedName =
       loggedName.charAt(0).toUpperCase() + loggedName.slice(1);
     const capitalizedTopic =
@@ -40,13 +39,20 @@ const ChatApp = ({ location, loggedName, loggedTopic }) => {
 
     // Join user in room
     socket.emit('joinRoom', { name: capitalizedName, topic: capitalizedTopic });
+
+    (async () => {
+      const msgs = await getAllMessages(capitalizedTopic);
+      if (msgs) {
+        setMessageList([...msgs]);
+      }
+    })();
   }, []);
 
   useEffect(() => {
     // Listen for sent messages by user
     // Stores the sent message in list
     socket.on('message', (message) => {
-      if (message.name === 'admin') {
+      if (message.sentBy === 'admin') {
         setAdminMessageList((msg) => [...msg, message]);
       } else {
         setMessageList((msg) => [...msg, message]);
@@ -69,8 +75,6 @@ const ChatApp = ({ location, loggedName, loggedTopic }) => {
     if (message) {
       socket.emit('chatMessage', message);
       const textInput = document.getElementById('text-input');
-
-      setMessage(message);
 
       textInput.value = '';
       setMessage('');

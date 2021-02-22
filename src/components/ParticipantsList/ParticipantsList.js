@@ -6,7 +6,7 @@ import { MessageContext } from '../ChatApp/ChatApp';
 
 const ParticipantsList = () => {
   const { participantsList } = useContext(MessageContext);
-  console.log('pariticiasinpsa', participantsList);
+
   const containerStyle = {
     height: '85%',
     backgroundColor: '#f9fafd',
