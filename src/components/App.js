@@ -6,8 +6,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { getAllTopics, createTopic } from '../utils/api';
 
 const App = () => {
-  const [name, setName] = useState('');
-  const [topic, setTopic] = useState('');
+  const [loggedName, setLoggedName] = useState('');
+  const [loggedTopic, setLoggedTopic] = useState('');
 
   useEffect(() => {
     getAllTopics();
@@ -23,12 +23,21 @@ const App = () => {
         <Route
           path='/chat'
           exact
-          render={() => <ChatApp loggedName={name} loggedTopic={topic} />}
+          render={() => (
+            <ChatApp
+              loggedName={loggedName}
+              loggedTopic={loggedTopic}
+              setLoggedName={setLoggedName}
+              setLoggedTopic={setLoggedTopic}
+            />
+          )}
         />
         <Route
           path='/'
           exact
-          render={() => <Login setName={setName} setTopic={setTopic} />}
+          render={() => (
+            <Login setName={setLoggedName} setTopic={setLoggedTopic} />
+          )}
         />
       </Router>
     </div>

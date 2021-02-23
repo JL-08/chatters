@@ -1,8 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../App.css';
 import { Link } from 'react-router-dom';
 
+import Topics from './Topics/Topics';
+import { getAllTopics } from '../../utils/api';
+
 const Login = ({ setName, setTopic, handleLogin }) => {
+  const [topicList, setTopicList] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const topics = await getAllTopics();
+      if (topics) {
+        setTopicList([...topics]);
+      }
+    })();
+  }, []);
+
   const containerStyle = {
     height: '70%',
     width: '50%',
@@ -39,22 +53,9 @@ const Login = ({ setName, setTopic, handleLogin }) => {
           </div>
           <ul>Active Topics</ul>
           <div className='flex space-x-3'>
-            <div className='w-1/2 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 border border-solid border-gray-800'>
-              <h4 className='mb-4 font-semibold text-gray-600 dark:text-gray-300'>
-                Programming
-              </h4>
-              <p className='text-gray-600 dark:text-gray-400'>
-                200 people are in
-              </p>
-            </div>
-            <div className='w-1/2 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 border border-solid border-gray-800'>
-              <h4 className='mb-4 font-semibold text-gray-600 dark:text-gray-300'>
-                Animals
-              </h4>
-              <p className='text-gray-600 dark:text-gray-400'>
-                1999 people are in
-              </p>
-            </div>
+            {Object.entries(topicList).map((topic, i) => (
+              <Topics key={i} topic={topic[1].name} />
+            ))}
           </div>
           <div className='mt-4'>
             <Link onClick={handleLogin} to={'/chat'}>

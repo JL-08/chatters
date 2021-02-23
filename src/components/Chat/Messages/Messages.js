@@ -1,13 +1,13 @@
 import React from 'react';
 
-const Messages = ({ message, name }) => {
+const Messages = ({ message, socketId }) => {
   console.log('msg', message);
   let isSentByCurrentUser = false;
 
-  if (message.sentBy === name) {
+  if (message.socketId === socketId) {
     isSentByCurrentUser = true;
   }
-  console.log(isSentByCurrentUser);
+
   return (
     <div>
       {isSentByCurrentUser ? (

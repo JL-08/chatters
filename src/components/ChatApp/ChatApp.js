@@ -17,8 +17,9 @@ let socket;
 // Create context for passing of states to components
 export const MessageContext = createContext();
 
-const ChatApp = ({ loggedName, loggedTopic }) => {
+const ChatApp = ({ loggedName, loggedTopic, setLoggedTopic }) => {
   const [name, setName] = useState('');
+  const [socketId, setSocketId] = useState('');
   const [topic, setTopic] = useState('');
   const [message, setMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
@@ -38,7 +39,10 @@ const ChatApp = ({ loggedName, loggedTopic }) => {
     setName(capitalizedName);
 
     // Join user in room
-    socket.emit('joinRoom', { name: capitalizedName, topic: capitalizedTopic });
+    socket.emit('joinRoom', {
+      name: capitalizedName,
+      topic: capitalizedTopic,
+    });
 
     (async () => {
       const msgs = await getAllMessages(capitalizedTopic);
@@ -46,11 +50,16 @@ const ChatApp = ({ loggedName, loggedTopic }) => {
         setMessageList([...msgs]);
       }
     })();
-  }, []);
+  }, [loggedName, loggedTopic]);
 
   useEffect(() => {
     // Listen for sent messages by user
     // Stores the sent message in list
+    socket.on('getSocketId', (socketId) => {
+      console.log(socketId);
+      setSocketId(socketId);
+    });
+
     socket.on('message', (message) => {
       if (message.sentBy === 'admin') {
         setAdminMessageList((msg) => [...msg, message]);
@@ -66,7 +75,7 @@ const ChatApp = ({ loggedName, loggedTopic }) => {
     socket.on('displayTopics', (topics) => {
       setTopicList([...topics]);
     });
-  }, []);
+  }, [loggedTopic]);
 
   // onClick handlers
   const sendMessage = (e) => {
@@ -81,9 +90,11 @@ const ChatApp = ({ loggedName, loggedTopic }) => {
     }
   };
 
-  const changeTopic = (e) => {
+  const changeTopic = async (e) => {
     const newTopic = e.target.innerHTML;
-    window.location.href = `http://127.0.0.1:3000/chat?name=${name}&topic=${newTopic}`;
+
+    await socket.emit('changeTopic', topic, newTopic);
+    setLoggedTopic(newTopic);
   };
 
   const disconnectUser = (e) => {
@@ -95,6 +106,7 @@ const ChatApp = ({ loggedName, loggedTopic }) => {
       <MessageContext.Provider
         value={{
           name,
+          socketId,
           topic,
           setMessage,
           messageList,

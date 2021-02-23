@@ -1,10 +1,13 @@
 const axios = require('axios');
 
-const getAllTopics = () => {
-  axios
+const getAllTopics = async () => {
+  const res = await axios
     .get('http://localhost:8000/api/topic')
-    .then((res) => console.log(res.data))
     .catch((err) => console.log(err));
+
+  if (res.data.data.topics) {
+    return res.data.data.topics;
+  }
 };
 
 const getAllMessages = async (topic) => {
