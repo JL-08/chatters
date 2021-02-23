@@ -1,9 +1,15 @@
 import React from 'react';
+import './Topic.css';
 
-const Topics = ({ topic }) => {
+const Topics = ({ topic, selectTopic }) => {
   return (
-    <div className='p-2 bg-white rounded-lg shadow-xs dark:bg-gray-800 border border-solid border-gray-800 hover:bg-gray-200'>
-      <p className='font-semibold text-gray-600 dark:text-gray-300'>{topic}</p>
+    <div
+      className='hover-effect p-2 mr-3 bg-white rounded-lg shadow-xs border border-solid border-gray-800 hover:bg-gray-800'
+      onClick={(e) => {
+        selectTopic(e);
+      }}
+    >
+      <p className='font-semibold'>{topic}</p>
     </div>
   );
 };

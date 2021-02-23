@@ -1,6 +1,11 @@
 .announce-container {
   height: 85%;
   background-color: #f9fafd;
+  overflow-y: scroll;
+}
+
+.announce-container::-webkit-scrollbar {
+  display: none;
 }
 
 #announce-msg-users {

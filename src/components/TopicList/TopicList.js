@@ -7,14 +7,6 @@ import Topic from './Topic/Topic';
 import { MessageContext } from '../ChatApp/ChatApp';
 
 const TopicList = () => {
-  // const getTopicsBySize = (topics, size) => {
-  //   if (topics.length < size) {
-  //     return topics.slice(0, topics.length);
-  //   } else {
-  //     return topics.slice(0, size);
-  //   }
-  // };
-
   const removeCurrentTopic = (topics, currentTopic) => {
     return topics.filter((val) => val.name !== currentTopic);
   };
@@ -26,7 +18,7 @@ const TopicList = () => {
   const newTopicList = removeCurrentTopic(topicList, topic);
 
   return (
-    <div className='bg-white w-1/4 h-full px-5'>
+    <div className='w-1/4 h-full px-5'>
       <div className='box-shadow box-bg-color h-3/5 rounded-2xl p-3'>
         <h1 className='text-2xl mb-1'>#{topic}</h1>
         <Link onClick={(e) => disconnectUser(e)} to={'/'}>

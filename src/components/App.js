@@ -18,7 +18,7 @@ const App = () => {
   };
 
   return (
-    <div className='flex p-4 w-full h-screen'>
+    <div className='flex w-full h-screen'>
       <Router>
         <Route
           path='/chat'

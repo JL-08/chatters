@@ -1,0 +1,7 @@
+.hover-effect {
+  color: rgb(88, 88, 88);
+}
+.hover-effect:hover {
+  color: white;
+  cursor: pointer;
+}
