@@ -102,7 +102,7 @@ const ChatApp = ({ loggedName, loggedTopic, setLoggedTopic }) => {
   };
 
   return (
-    <div className='flex p-4 w-full h-full space-x-2'>
+    <div className='flex sm:flex-col md:flex-row p-4 w-full h-full md:space-x-2 sm:space-y-2'>
       <MessageContext.Provider
         value={{
           name,

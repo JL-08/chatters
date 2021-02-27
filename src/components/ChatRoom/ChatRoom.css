@@ -1,0 +1,5 @@
+@media (max-width: 768px) {
+  .chatroom-container {
+    height: 35em;
+  }
+}

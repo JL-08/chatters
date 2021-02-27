@@ -1,7 +1,6 @@
 .participants-container {
-  height: '85%';
-  background-color: '#f9fafd';
-  overflow-y: 'scroll';
+  height: 92%;
+  overflow-y: scroll;
 }
 
 .participants-container::-webkit-scrollbar {

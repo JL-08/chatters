@@ -10,7 +10,7 @@ const ParticipantsList = () => {
   const { participantsList } = useContext(MessageContext);
 
   return (
-    <div className='box-shadow box-bg-color h-3/5 rounded-2xl p-3'>
+    <div className='box-shadow box-bg-color md:h-3/5 sm:h-96 md:w-full sm:w-1/2 rounded-2xl p-3'>
       <h1 className='font-bold mb-2'>Participants</h1>
       <div className='participants-container'>
         {participantsList.map((user, i) => (

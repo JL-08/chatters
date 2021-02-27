@@ -1,11 +1,18 @@
 import React from 'react';
+import moment from 'moment';
 
 const Messages = ({ message, socketId }) => {
-  console.log('msg', message);
   let isSentByCurrentUser = false;
+  let formatDate = 0;
 
   if (message.socketId === socketId) {
     isSentByCurrentUser = true;
+  }
+
+  if (message.sentAt.length > 8) {
+    formatDate = moment(message.sentAt).format('h:mm a');
+  } else {
+    formatDate = message.sentAt;
   }
 
   return (
@@ -18,7 +25,7 @@ const Messages = ({ message, socketId }) => {
                 {/* <p className='username'>You</p> */}
                 <p className='text'>{message.messageText}</p>
               </div>
-              <span className='date'>{message.sentAt}</span>
+              <span className='date'>{formatDate}</span>
             </div>
           </div>
         </div>
@@ -29,7 +36,7 @@ const Messages = ({ message, socketId }) => {
               <p className='username'>{message.sentBy}</p>
               <p className='text'>{message.messageText}</p>
             </div>
-            <span className='date'>{message.sentAt}</span>
+            <span className='date'>{formatDate}</span>
           </div>
         </div>
       )}
