@@ -1,3 +1,5 @@
+Server files are available [here](https://github.com/JL-08/chatters-server)
+
 # Chatters: A Real-Time Chat Application
 
 Chatters lets people chat with each other of their chosen topic.\
